@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { LoginDTO, RegisterDTO } from '../validators/user';
 import authService from '../services/auth';
-import { hashPassword } from '../utilities/password-utils';
+import { hashPassword } from '../utilities/utils';
 
 interface SuccessResponse {
   message: string;

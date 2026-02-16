@@ -1,5 +1,5 @@
 import { db } from '../db/client';
-import { validatePassword, generateJWT } from '../utilities/password-utils';
+import { validatePassword, generateJWT } from '../utilities/utils';
 
 const register = async (username: string, passwordHash: string) => {
   const user = await db

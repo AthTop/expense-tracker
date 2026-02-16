@@ -1,5 +1,6 @@
 import bcrypt from 'bcrypt';
-import { SignJWT } from 'jose';
+import { jwtVerify, SignJWT } from 'jose';
+import { jwtPayloadSchema } from '../validators/jwt';
 
 export const hashPassword = async (password: string): Promise<string> => {
   return await bcrypt.hash(password, 10);
@@ -24,4 +25,15 @@ export const generateJWT = async (payload: {
     .sign(secret);
 
   return token;
+};
+
+export const verifyToken = async (token: string) => {
+  const secret = new TextEncoder().encode(process.env.JWT_SECRET);
+  try {
+    const { payload } = await jwtVerify(token, secret);
+    const validatedPayload = jwtPayloadSchema.parse(payload);
+    return validatedPayload;
+  } catch (err) {
+    throw new Error('Invalid or missing token');
+  }
 };
