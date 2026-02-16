@@ -1,0 +1,21 @@
+@baseUrl = http://localhost:3000/api
+
+### Create user
+POST {{baseUrl}}/auth/register
+Content-Type: application/json
+
+{
+    "username": "Testuser1",
+    "password": "Testpassword1",
+    "passwordConfirm": "Testpassword1"
+}
+
+### Create user(mallformed payload)
+POST {{baseUrl}}/auth/register
+Content-Type: application/json
+
+{
+    "username": "Te",
+    "password": "testpassword1",
+    "passwordConfirm": "Testpassword1"
+}
