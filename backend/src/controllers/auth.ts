@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { RegisterDTO } from '../validators/user';
+import { LoginDTO, RegisterDTO } from '../validators/user';
 import authService from '../services/auth';
 import { hashPassword } from '../utilities/password-utils';
 
@@ -17,4 +17,13 @@ export const registerUser = async (
   const user = await authService.register(username, hashedPassword);
 
   res.status(201).json({ message: 'User created', userId: user.user_id });
+};
+
+export const loginUser = async (
+  req: Request<any, any, LoginDTO>,
+  res: Response,
+) => {
+  const { username, password } = req.body;
+  const token = await authService.login(username, password);
+  res.status(200).json({ token });
 };
